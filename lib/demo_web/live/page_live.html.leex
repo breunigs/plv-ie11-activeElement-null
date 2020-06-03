@@ -1,0 +1,66 @@
+<section class="phx-hero">
+
+  <script phx-track-static type="text/javascript">
+    setInterval(function() { console.log(document.activeElement); }, 1000);
+  </script>
+
+  <h3>steps to reproduce</h3>
+  <ol>
+    <li>open site in IE11</li>
+    <li>open inspector console to see what's going on. It prints the document.activeElement every second.</li>
+    <li>click the link, then don't click anything else</li>
+    <li>observe that the active element becomes null.</li>
+    <li>wait for the server push that updates the clock and see it failing on focus</li>
+  </ol>
+
+  <%= if !@hide do %>
+    <a style="font-size: 300%" data-phx-link="patch" data-phx-link-state="push" href="/?hide=1&buster=<%= "#{DateTime.utc_now}" %>">click me twice!</a>
+  <% end %>
+
+  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <p><%= @clock %></p>
+
+  <form phx-change="suggest" phx-submit="search">
+    <input type="text" name="q" value="<%= @query %>" placeholder="Live dependency search" list="results" autocomplete="off"/>
+    <datalist id="results">
+      <%= for {app, _vsn} <- @results do %>
+        <option value="<%= app %>"><%= app %></option>
+      <% end %>
+    </datalist>
+    <button type="submit" phx-disable-with="Searching...">Go to Hexdocs</button>
+  </form>
+</section>
+
+<section class="row">
+  <article class="column">
+    <h2>Resources</h2>
+    <ul>
+      <li>
+        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
+      </li>
+      <li>
+        <a href="https://github.com/phoenixframework/phoenix">Source</a>
+      </li>
+      <li>
+        <a href="https://github.com/phoenixframework/phoenix/blob/v1.5/CHANGELOG.md">v1.5 Changelog</a>
+      </li>
+    </ul>
+  </article>
+  <article class="column">
+    <h2>Help</h2>
+    <ul>
+      <li>
+        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
+      </li>
+      <li>
+        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
+      </li>
+      <li>
+        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
+      </li>
+      <li>
+        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
+      </li>
+    </ul>
+  </article>
+</section>
